@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Canvas Test</title>
+  </head>
+  <body>
+	<canvas id="tekkenCanvas" width="500px" height="500px" style="border: solid 1px grey;"></canvas>
+	<script>
+		var canvas = document.getElementById("tekkenCanvas");
+		var context = canvas.getContext('2d');
+		context.fillText("Big smile!",10,90);
+		context.rect(20,20,150,100);
+		context.stroke(); 
+	</script>
+  </body>
+</html>
