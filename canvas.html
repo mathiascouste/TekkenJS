@@ -4,13 +4,19 @@
     <title>Canvas Test</title>
   </head>
   <body>
-	<canvas id="tekkenCanvas" width="1000px" height="800px" style="border: solid 1px grey;"></canvas>
+	<canvas id="tekkenCanvas" width="1000px" height="650px" style="border: solid 1px grey;"></canvas>
 	<script>
 		var canvas = document.getElementById("tekkenCanvas");
 		var context = canvas.getContext('2d');
 		context.fillText("Big smile!",10,90);
-		context.rect(20,20,150,100);
-		context.stroke(); 
+		//context.rect(20,20,150,100);
+
+
+		var maxlife = 100;
+		var mylife = 5;
+		context.rect(50,50,100,5);
+		context.fillRect(50+maxlife-mylife,50,mylife,5);
+		context.stroke();
 	</script>
   </body>
 </html>

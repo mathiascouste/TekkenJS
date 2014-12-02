@@ -15,13 +15,14 @@
   </head>
   <script src="/socket.io/socket.io.js"></script>
   <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-  <body onkeydown="touche(event);">
+  <body onkeydown="keyPressed(event);" onkeyup="keyReleased(event);">
     <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script>
 	var socket = io();
+	socket.emit('new player', prompt('Donnez votre nom'));
 	$('form').submit(function(){
 		socket.emit('chat message', $('#m').val());
 		$('#m').val('');
@@ -30,9 +31,17 @@
 	socket.on('chat message', function(msg){
 		$('#messages').append($('<li>').text(msg));
 	});
-	 function touche(event){
+	 function keyPressed(event){
 		var touche = event.keyCode;
-		socket.emit('key pressed', touche);
+		if(touche >= 37 && touche <= 40) {
+			socket.emit('key pressed', touche);
+		}
+	}
+	 function keyReleased(event){
+		var touche = event.keyCode;
+		if(touche >= 37 && touche <= 40) {
+			socket.emit('key released', touche);
+		}
 	}
 	</script>
   </body>
