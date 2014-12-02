@@ -4,19 +4,85 @@
     <title>Canvas Test</title>
   </head>
   <body>
-	<canvas id="tekkenCanvas" width="1000px" height="650px" style="border: solid 1px grey;"></canvas>
+	<canvas id="tekkenCanvas" width="1000px" height="600px" style="border: solid 1px grey;"></canvas>
 	<script>
-		var canvas = document.getElementById("tekkenCanvas");
-		var context = canvas.getContext('2d');
-		context.fillText("Big smile!",10,90);
-		//context.rect(20,20,150,100);
-
-
-		var maxlife = 100;
-		var mylife = 5;
-		context.rect(50,50,100,5);
-		context.fillRect(50+maxlife-mylife,50,mylife,5);
-		context.stroke();
+		var time;
+		var life = 360;
+		
+		var drawTekken = function(life){
+			var canvas = document.getElementById("tekkenCanvas");
+			var context = canvas.getContext('2d');
+			var largeur = canvas.width;
+			var hauteur = canvas.height;
+			var maxLife = 0.4*largeur;
+			
+			// Fonctions
+			var drawLifeBarL = function(posX, posY, width, height){
+				drawLifeBar(posX, posY, width, height);
+				// Barre du dessus
+				context.beginPath();
+				context.fillStyle = "#00CC00";
+				context.fillRect(posX+(maxLife-life),posY,width-(maxLife-life),height);
+				context.stroke();
+			}
+			
+			var drawLifeBarR = function(posX, posY, width, height){
+				drawLifeBar(posX, posY, width, height);
+				// Barre du dessus
+				context.beginPath();
+				context.fillStyle = "#00CC00";
+				context.fillRect(posX,posY,width-(maxLife-life),height);
+				context.stroke();
+			}
+			var drawLifeBar = function(posX, posY, width, height){
+				// Bordure
+				context.beginPath();
+				context.lineWidth="3";
+				context.rect(posX-1,posY-1,width+2,height+2);
+				context.stroke();
+				// Barre de fond
+				context.beginPath();
+				context.fillStyle = "#FF0000";
+				context.fillRect(posX,posY,width,height);
+				context.stroke();
+			}
+			
+			// Image de fond
+			var imgfond = new Image();
+			imgfond.src = "http://cache4.asset-cache.net/xc/451170447.jpg?v=2&c=IWSAsset&k=2&d=7DZx6PCph4aXdCe8f5krfQ6dFNzRa91bNtAuQHOKX5M1";
+			context.drawImage(imgfond,0,0,largeur, hauteur);
+			
+			// Barres de vie
+			drawLifeBarL(0.03*largeur,0.04*hauteur,maxLife,0.03*hauteur);
+			//drawTime(0.43*largeur); 
+			drawLifeBarR(0.57*largeur,0.04*hauteur,maxLife,0.03*hauteur);
+			
+			// Personnage 1
+			var imgLapin1 = new Image();
+			imgLapin1.src = "http://hydra-media.cursecdn.com/minecraft-fr.gamepedia.com/thumb/f/f4/Lapin.png/150px-Lapin.png?version=d960afde6dc09d03d32a6d325865a259";
+			context.drawImage(imgLapin1,70,230,90,90);
+			
+			// Personnage 2
+			var imgLapin2 = new Image();
+			imgLapin2.src = "http://fr-minecraft.net/img/creatures/big/101-99-lapin-caerbannog.png";
+			context.drawImage(imgLapin2,320,230,90,90);
+			
+			/*var imgPeau = new Image();
+			imgPeau.src = "./img/peau_lapin.png";
+			context.drawImage(imgPeau,150,150,70,70);*/
+			//context.fillText("Big smile!",10,90);
+			//context.rect(20,20,150,100);
+			//context.stroke(); 
+			
+			/*function caca(par1, par2) {
+				
+			};
+			var caca = function(par1, par2) {
+				
+			};*/
+		}
+		drawTekken(life);
+>>>>>>> e263e6d9cbda323031be36ed09a818a784f41af4
 	</script>
   </body>
 </html>
