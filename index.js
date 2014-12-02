@@ -14,6 +14,10 @@ io.on('connection', function(socket) {
 		io.emit('chat message', msg);
 	});
 	
+	socket.on('key pressed', function(msg) {
+		console.log('touche pressée : ' + msg);
+	});	
+	
 	socket.on('disconnect', function() {
 		console.log('user disconnected !');
 	});
