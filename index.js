@@ -10,7 +10,8 @@ app.get('/', function(req, res) {
 var inform = function(joueur) {
 	joueur.socket.emit('chat message', joueur.toJSON());
 }
-
+var maxWitdh = 100;
+var playerWitdh = 10;
 var joueurList = new Array();
 var newJoueur = function(nom, socket) {
 	var j = new Object();
@@ -44,7 +45,14 @@ var newJoueur = function(nom, socket) {
 	j['move'] = function() {
 		this.posX += this.speedX;
 		this.posY += this.speedY;
-		console.log("speedY : " + this.speedY);
+		if(this.posY < 0) {
+			this.posY = 0;
+			this.speedY = 0;
+		}
+		if(this.posY > maxWitdh-playerWitdh) {
+			this.posY = maxWitdh-playerWitdh;
+			this.speedY = 0;
+		}
 	}
 	j['action'] = function(joueur) {
 		joueur.move();
@@ -65,7 +73,6 @@ io.on('connection', function(socket) {
 	socket.on('new player', function(msg) {
 		playerName = msg;
 		joueur = newJoueur(msg, socket);
-		joueur.draw();
 		joueur.start();
 		setInterval(inform, 100, joueur);
 	});
@@ -76,9 +83,10 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('key pressed', function(key) {
-		console.log('KEY = ' + key);
 		if(key == 38) {
-			joueur.speedX = 10;
+			if(joueur.posX==0) {
+				joueur.speedX = 10;
+			}
 		} else if(key == 37) { // LEFT
 			joueur.speedY = -1;
 		} else if(key == 39) { // RIGHT
@@ -87,7 +95,6 @@ io.on('connection', function(socket) {
 	});
 	
 	socket.on('key released', function(key) {
-		console.log('KEY = ' + key);
 		if(key == 37) { // LEFT
 			if(joueur.speedY < 0) {
 				joueur.speedY = 0;

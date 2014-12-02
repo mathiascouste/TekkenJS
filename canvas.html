@@ -65,8 +65,10 @@
 			// Personnage 2
 			var imgLapin2 = new Image();
 			imgLapin2.src = "http://fr-minecraft.net/img/creatures/big/101-99-lapin-caerbannog.png";
-			context.drawImage(imgLapin2,320,230,90,90);
-			
+			var invert = -1;
+			context.scale(invert, 1);
+			context.drawImage(imgLapin2,-320,230,90,90);
+			context.scale(1, 1);
 			/*var imgPeau = new Image();
 			imgPeau.src = "./img/peau_lapin.png";
 			context.drawImage(imgPeau,150,150,70,70);*/
@@ -82,7 +84,6 @@
 			};*/
 		}
 		drawTekken(life);
->>>>>>> e263e6d9cbda323031be36ed09a818a784f41af4
 	</script>
   </body>
 </html>
